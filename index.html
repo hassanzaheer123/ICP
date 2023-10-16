@@ -1,0 +1,3411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICP Institute</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Link to Roboto font family from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+
+    <!-- Include Bootstrap CSS (either via CDN or locally) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- Custom CSS for styling -->
+    <style>
+        /*  sticky mobile navbar  */
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            /* Adjust the background color as needed */
+            z-index: 100;
+            /* Ensure it's above other content */
+        }
+
+        /* Add this CSS to style the title and menu button inside the sticky container */
+        .sticky-container h3 {
+            padding: 10px;
+            /* Add padding for spacing */
+            margin: 0;
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 10px;
+            /* Adjust the top position as needed */
+            right: 10px;
+            /* Adjust the right position as needed */
+        }
+
+        /* Decrease gap between alert and navbar */
+
+        .custom-alert {
+            margin-bottom: 0;
+            background-color: rgba(255, 0, 0, 0.87);
+            /* Contrasting color */
+            color: white;
+            border: none;
+            border-radius: 0;
+
+        }
+
+
+
+        .navbar-brand:hover {
+            text-decoration: none !important;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: white;
+            /* Very light gray */
+            box-shadow: 0px 0px 5px 0px gray;
+        }
+
+        /* Custom button styling */
+        .navbar-nav .nav-link {
+            text-transform: capitalize;
+            border-radius: 0;
+            margin: 0;
+            padding: 10px 20px;
+            /* Add gap between buttons */
+            font-size: 1.2rem;
+            margin-left: 10px;
+            /* Increase button text size */
+        }
+
+        .navbar-nav .nav-link {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid white;
+        }
+
+        /* Change the text color to black */
+        .nav-link {
+            color: white !important;
+        }
+
+        /* Remove gray background color from accordion headers */
+        .card-header {
+            background-color: transparent;
+        }
+
+        /* Add down arrows to accordion headers */
+        .accordion-button {
+            width: 100%;
+            padding: 10px;
+            text-align: start;
+        }
+
+        .accordion-button::after {
+            content: "\f107";
+            /* Unicode character for down arrow */
+            font-family: FontAwesome;
+            float: right;
+            position: absolute;
+            right: 30px;
+        }
+
+        /* Style for the active accordion header */
+        .accordion-button:not(.collapsed)::after {
+            content: "\f107";
+            /* Unicode character for up arrow when active */
+            position: absolute;
+            right: 30px;
+        }
+
+        .nav-pills .nav-item .nav-link {
+            color: black !important;
+        }
+
+        /* Styling for the offcanvas navbar */
+        .offcanvas-navbar {
+            background-color: #007bff;
+            /* Primary color background */
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            /* Initially hidden to the right */
+            overflow-y: auto;
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .offcanvas-navbar a {
+            color: #fff;
+            /* White text color */
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .offcanvas-navbar a:hover {
+            background-color: #0056b3;
+            /* Darker blue on hover */
+        }
+
+        /* Styling for the menu button */
+        .menu-button {
+            background-color: #007bff;
+            /* Primary color background */
+            color: #fff;
+            /* White text color */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for the close button */
+        .close-button {
+            position: absolute;
+            color: white;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+
+        /* Add your custom internal CSS here */
+        .faq-section {
+            padding: 30px 0 30px;
+            background: white;
+        }
+
+        .faq-section .card {
+            border: none;
+            margin-bottom: 30px;
+        }
+
+        .faq-section .btn-link {
+            display: block;
+            width: 100%;
+            text-align: left;
+            position: relative;
+            background: #242c42;
+            color: #fff;
+            border-radius: 0;
+            padding: 7px 15px 12px;
+            font-size: 16px;
+            overflow: hidden;
+            border: none;
+            font-weight: 600;
+        }
+
+        .faq-section .btn-link:hover,
+        .faq-section .btn-link:focus {
+            text-decoration: none;
+        }
+
+        .faq-section .btn-link:after {
+            position: absolute;
+            content: '\f068';
+            right: 15px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            font-family: fontawesome;
+        }
+
+        .faq-section .btn-link.collapsed:after {
+            content: '\f067';
+        }
+
+        .faq-section .btn-link:before {
+            position: absolute;
+            content: '';
+            background: #86bc42;
+            -webkit-transform: skew(-35deg);
+            transform: skew(-35deg);
+            height: 100%;
+            width: 50%;
+            left: 90%;
+            top: 0;
+        }
+
+        .faq-section .card-header {
+            padding: 0;
+            background: transparent;
+            border-bottom: none;
+        }
+
+        .faq-section .card-body {
+            position: relative;
+        }
+
+        .faq-section .card-body:after {
+            position: absolute;
+            content: '';
+            height: 2px;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            background: #242c42;
+        }
+
+        .faq-section .card-body:before {
+            position: absolute;
+            content: '';
+            height: 2px;
+            width: 50%;
+            left: 0;
+            bottom: 0;
+            background: #86bc42;
+            z-index: 1;
+        }
+
+
+        /* INTERNSHIP  */
+
+        .opportunity-card {
+            background-color: #ffffff;
+            border: 1px solid #e9e9e9;
+            margin-bottom: 20px;
+        }
+
+        .opportunity-card .card-body {
+            color: #333333;
+        }
+
+        .opportunity-card .card-title {
+            color: #007bff;
+        }
+
+        .contact-info {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .contact-info a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+
+        /*      CONTACT DETAILS      */
+        .contact-wrapper {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info1 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .contact-form {
+            margin-top: 20px;
+        }
+
+        .contact-form h4 {
+            color: #007bff;
+        }
+
+        .map-container {
+            border: 1px solid #d1d1d1;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .map-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+
+        /*   ABOUT SECTION    */
+
+
+        .about-icp-container {
+            background-color: #fff;
+            border-radius: 10px;
+         
+            padding: 30px;
+            margin-left: 7vw;
+            margin-right: 7vw;
+            
+        }
+
+        .about-icp-text {
+            text-align: justify;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .highlight-blue {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .highlight-red {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .principal-section {
+            text-align: center;
+            width: 60vw;
+            margin-top: 40px;
+            padding: 20px;
+
+            color: black;
+            border-radius: 10px;
+        }
+
+        .principal-image {
+            max-width: 100%;
+            border-radius: 50%;
+            margin-top: 20px;
+            border: 5px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 767px) {
+
+            /* Mobile styles */
+            .about-icp-container {
+                padding: 20px;
+            }
+        }
+
+        .principal-text {
+            font-size: large;
+        }
+
+
+
+
+        /* Certificate Verification */
+        .verify-button {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .verify-button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .news-area {
+            background-color: red;
+            color: white;
+            min-width: 10vw;
+
+        }
+
+        /*     Imae for Courses Intro       */
+
+        .card-img-top {
+            border: none;
+            border-radius: 0;
+            height: 35vh;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .card-body-lg {
+                height: auto;
+                /* Adjust the height for smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Alert Banner -->
+    <div class="alert custom-alert fade show " role="alert">
+        <p class="d-none d-md-block text-center" style="font-size: large; font-weight: 500;">
+            Our courses kick off from just 10,000 Rs, making quality education
+            accessible to all.
+        </p>
+        <p class="d-block d-md-none text-center" style="font-size:small">
+            Our courses kick off from just 10,000 Rs, making quality education
+            accessible to all.
+        </p>
+
+
+    </div>
+
+    <!-- Menu Button to Open Offcanvas Navbar -->
+    <div class="sticky-container">
+        <div class="container d-block d-md-none">
+            <div class="row d-flex justify-content-center border">
+                <a href="index.html" style="text-decoration: none !important;">
+                    <h3 class="mt-1 mx-auto"><img src="images/pro.png" style="height: 80px;" alt=""> ICP Institute</h3>
+                </a>
+                <button class="menu-button mt-3 mx-auto" onclick="openNav()">
+                    <i class="navbar-toggler-icon fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+
+
+        <!-- Offcanvas Navbar For Small Devices-->
+        <div id="offcanvasNavbar" class="offcanvas-navbar">
+            <span class="close-button" onclick="closeNav()">&times;</span>
+            <a href="index.html" onclick="closeNav()">Home</a>
+            <a href="#abouUSid2" onclick="closeNav()">About</a>
+            <a href="#coursesSmall" onclick="closeNav()">Courses</a>
+            <a href="#FaqSection" onclick="closeNav()">FAQs</a>
+            <a href="#internshipid" onclick="closeNav()">Internship</a>
+            <a href="#contactid" onclick="closeNav()">Contact</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#certificateModal" onclick="closeNav()">Certificate
+                Verification</a>
+        </div>
+
+    </div>
+
+
+    <!-- Navbar For Large Devices -->
+    <div class="sticky-container">
+        <nav class="navbar navbar-expand-lg navbar-dark d-none d-md-flex border">
+            <!-- <a class="navbar-brand fw-bold" style="color: black" href="#">ICP Institute</a> -->
+            <a href="index.html" style="text-decoration: none !important;">
+                <h1 class="d-none d-md-flex"
+                    style="color: rgba(0, 0, 0, 0.747); font-weight: 400; align-items: center;">
+                    <img src="images/pro.png" style="height: 80px;" alt="">
+                    ICP Institute
+                </h1>
+            </a>
+            <!-- Add a custom class to the button -->
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="navbar-toggler-icon fa-solid fa-bars"
+                    style="color: black; font-size: x-large; margin-top: 2vh"></i>
+                <span class=""></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#courseslarge">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#FaqSection">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#internshipid">Internship</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contactid">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#abouUSid">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal"
+                            data-bs-target="#certificateModal">Certificate Verification</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Verify Certificate -->
+
+    <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light ">
+                    <h5 class="modal-title" id="staticBackdropLabel">Verify Your Certificate</h5>
+
+                </div>
+                <div class="modal-body mx-1">
+                    <div class="form-area">
+                        <div class="col-lg-6 form-section">
+                            <div class="mb-3">
+                                <form method="post" action="certificate-check.php">
+                                    <input type="text" class="form-control" placeholder="Enter Your Roll Number"
+                                        name="id" required="">
+                                    <div class="mt-3 form-btn">
+                                        <input type="submit" name="" class="btn btn-outline-info">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 news-area mx-2">
+                            Best Students
+                        </div>
+                        <div class="col-sm-9 col-xs-12 news">
+                            <marquee onmouseout="start()" onmouseover="stop()">
+                                <a href="#">Afza Anjum - 94%(C++ Student)</a>
+                                <a href="#">Iqra Parveen - 89% (Web Development Student)</a>
+                                <a href="#">Wahab Ali - 82%(Web Development Student)</a>
+                                <a href="#">Umer shah- 83%(Web Development Student)</a>
+                                <a href="#">Ramzan khan- 86%(Web Development Student)</a>
+                                <a href="#">Zeeshan Hamza- 81%(Web Development Student)</a>
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Courses Intro and ScrollSpy For Large Devices-->
+    <div class="container d-none d-md-flex">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Carousel items -->
+            <div class="carousel-inner mt-4">
+                <!-- First item -->
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/fullStack.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Full Stack Development</h5>
+                                        <p class="card-text">
+                                            Full stack web development course is cover all you need
+                                            to know to become a full stack developer which have 2
+                                            Months Front End 2 Months Back End 2 Month internship.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/Front End Web Designing.jpg" class="card-img-top" alt="...">
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Web Designing</h5>
+                                        <p class="card-text">
+                                            Web Designing is the most important thing in website
+                                            development. Basically Front end mean UI of website
+                                            which have you make website HTML 5, CSS 3, JavaScript,
+                                            Bootstrap, jQuery with SEO techniques.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second item -->
+                <div class="carousel-item active">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/ms_office.jpg" class="card-img-top" alt="...">
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">MS Office Coures</h5>
+                                        <p class="card-text">
+                                            Ms office course special design for professionals and
+                                            students. In this course give training about computer
+                                            how to use computer which have you make application
+                                            salary slip letters and other actives.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/PHP-MySQL.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">PHP Laravel and MySQL</h5>
+                                        <p class="card-text">
+                                            This course for student and professional because this
+                                            course covers all content that use in market as
+                                            internship, we trained student as a developer then they
+                                            can start our career in market.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/Graphic Designing.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Graphic Cesigning</h5>
+                                        <p class="card-text">
+                                            Graphics Designing course in Rawalpindi Campus .Every
+                                            one want to earn money at home the Best source of earn
+                                            though Freelancing is Graphic Designing .
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/Certificate in six months short courses.jpg" class="card-img-top"
+                                        alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Six Months Certificates</h5>
+                                        <p class="card-text">
+                                            These courses are designed to kick start your career in
+                                            different fields of information technology, web
+                                            development and Android App development you can pick one
+                                            course in this course.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fourth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/C plus plus.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Plus Plus</h5>
+                                        <p class="card-text">
+                                            This course specially designs for university student
+                                            that have not idea of programming language all content
+                                            covers up in this language that university provide.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/JAVA Programming.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Java Programming</h5>
+                                        <p class="card-text">
+                                            JAVA Programming is Modern programming language and this
+                                            language is use full for Mobile Apps.Our course cover up
+                                            all requirements of student who want to build career in
+                                            JAVA.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fifth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/Adobe Photoshop.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Adobe Photoshop</h5>
+                                        <p class="card-text">
+                                            Adobe Photoshop is a photo editing tool. You can fix
+                                            rough photos, give effects and enhance lighting etc.
+                                            Photoshop is also used for designing purpose.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/ASP .NET MVC COURSE.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">ASP.Net</h5>
+                                        <p class="card-text">
+                                            ASP.NET, developed by Microsoft, stands as a prominent
+                                            web development framework. It specializes in creating
+                                            dynamic web applications and services efficiently.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sixth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/C plus plus.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Plus Plus</h5>
+                                        <p class="card-text">
+                                            This course specially designs for university student
+                                            that have not idea of programming language all content
+                                            covers up in this language that university provide.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/Corel Draw.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Corel Draw</h5>
+                                        <p class="card-text">
+                                            CorelDRAW, a product by Corel Corporation, is a renowned
+                                            graphic design software. It excels in creating stunning
+                                            visuals and vector illustrations.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seventh item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/Mobile App Development.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Mobile App Development</h5>
+                                        <p class="card-text">
+                                            Mobile App technology now a days increase day by day and
+                                            the common operation system is use Android most of the
+                                            Companies. We provide training of Android Development in
+                                            Rawalpindi, Islamabad.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/Certificate in IT.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Certificates in IT</h5>
+                                        <p class="card-text">
+                                            This course in specially Designing for non IT Persons
+                                            Who have no idea of Information technology .they can
+                                            start there career with the help of this course the
+                                            course.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Eighth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/C_sharp.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Sharp</h5>
+                                        <p class="card-text">
+                                            Modern programming language that is use to Game
+                                            Development, Software Development and Web site
+                                            development. Most of the software develop in this
+                                            language.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/Adobe Illustrator.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Adobe Illustrator</h5>
+                                        <p class="card-text">
+                                            Adobe Illustrator Professional course is designed as job
+                                            oriented course for graphics designers and university
+                                            students. Illustrator is the best tool to start earning
+                                            online as a freelancer.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ninth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row justify-space-evenly">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="card">
+                                    <img src="images/Digital Marketing and SEO.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Search Engine Optimization</h5>
+                                        <p class="card-text">
+                                            Digital marketing is most important way to grow your
+                                            business now a days. If you leave this platform you will
+                                            70 % loss your traffic. It is very pouplar course now.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <div class="card">
+                                    <img src="images/UIUX.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">UI UX</h5>
+                                        <p class="card-text">
+                                            (UI) design is how designers create the look, feel,where
+                                            (UX) design is a design process whose main goal is to
+                                            create a system that provides a positive user
+                                            experience.
+                                        </p>
+                                        <a href="#courseslarge" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--Courses Intro and ScrollSpy For Small Devices-->
+
+    <div class="container d-block d-md-none mb-3" style="height: 75vh;">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Carousel items -->
+            <div class="carousel-inner mt-4">
+                <!-- First item -->
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/fullStack.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Full Stack Development</h5>
+                                        <p class="card-text">
+                                            Full stack web development course is cover all you need
+                                            to know to become a full stack developer which have 2
+                                            Months Front End 2 Months Back End 2 Month internship.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Second item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/Front End Web Designing.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Web Designing</h5>
+                                        <p class="card-text">
+                                            Web Designing is the most important thing in website
+                                            development. Basically Front end mean UI of website
+                                            which have you make website HTML 5, CSS 3, JavaScript,
+                                            Bootstrap, jQuery with SEO techniques.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Third item -->
+
+                <div class="carousel-item active">
+                    <div class="carousel-content row">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/ms_office.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">MS Office Coures</h5>
+                                        <p class="card-text">
+                                            Ms office course special design for professionals and
+                                            students. In this course give training about computer
+                                            how to use computer which have you make application
+                                            salary slip letters and other actives.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--Fourth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/PHP-MySQL.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">PHP Laravel and MySQL</h5>
+                                        <p class="card-text">
+                                            This course for student and professional because this
+                                            course covers all content that use in market as
+                                            internship, we trained student as a developer then they
+                                            can start our career in market.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Fifth item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/Graphic Designing.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Graphic Cesigning</h5>
+                                        <p class="card-text">
+                                            Graphics Designing course in Rawalpindi Campus .Every
+                                            one want to earn money at home the Best source of earn
+                                            though Freelancing is Graphic Designing .
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--6th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6  ">
+                                <div class="card">
+                                    <img src="images/Certificate in six months short courses.jpg" class="card-img-top"
+                                        alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Six Months Certificates</h5>
+                                        <p class="card-text">
+                                            These courses are designed to kick start your career in
+                                            different fields of information technology, web
+                                            development and Android App development you can pick one
+                                            course in this course.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/C plus plus.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Plus Plus</h5>
+                                        <p class="card-text">
+                                            This course specially designs for university student
+                                            that have not idea of programming language all content
+                                            covers up in this language that university provide.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--8th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/JAVA Programming.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Java Programming</h5>
+                                        <p class="card-text">
+                                            JAVA Programming is Modern programming language and this
+                                            language is use full for Mobile Apps.Our course cover up
+                                            all requirements of student who want to build career in
+                                            JAVA.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- 9th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/Adobe Photoshop.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Adobe Photoshop</h5>
+                                        <p class="card-text">
+                                            Adobe Photoshop is a photo editing tool. You can fix
+                                            rough photos, give effects and enhance lighting etc.
+                                            Photoshop is also used for designing purpose.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--10th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/ASP .NET MVC COURSE.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">ASP.Net</h5>
+                                        <p class="card-text">
+                                            ASP.NET, developed by Microsoft, stands as a prominent
+                                            web development framework. It specializes in creating
+                                            dynamic web applications and services efficiently.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 11th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/C plus plus.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Plus Plus</h5>
+                                        <p class="card-text">
+                                            This course specially designs for university student
+                                            that have not idea of programming language all content
+                                            covers up in this language that university provide.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--12th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                <div class="card">
+                                    <img src="images/Corel Draw.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Corel Draw</h5>
+                                        <p class="card-text">
+                                            CorelDRAW, a product by Corel Corporation, is a renowned
+                                            graphic design software. It excels in creating stunning
+                                            visuals and vector illustrations.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 13th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/Mobile App Development.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Mobile App Development</h5>
+                                        <p class="card-text">
+                                            Mobile App technology now a days increase day by day and
+                                            the common operation system is use Android most of the
+                                            Companies. We provide training of Android Development in
+                                            Rawalpindi, Islamabad.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--14th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/Certificate in IT.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Certificates in IT</h5>
+                                        <p class="card-text">
+                                            This course in specially Designing for non IT Persons
+                                            Who have no idea of Information technology .they can
+                                            start there career with the help of this course the
+                                            course.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 15th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/C_sharp.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">C Sharp</h5>
+                                        <p class="card-text">
+                                            Modern programming language that is use to Game
+                                            Development, Software Development and Web site
+                                            development. Most of the software develop in this
+                                            language.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--16th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/Adobe Illustrator.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Adobe Illustrator</h5>
+                                        <p class="card-text">
+                                            Adobe Illustrator Professional course is designed as job
+                                            oriented course for graphics designers and university
+                                            students. Illustrator is the best tool to start earning
+                                            online as a freelancer.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 17th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/Digital Marketing and SEO.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Search Engine Optimization</h5>
+                                        <p class="card-text">
+                                            Digital marketing is most important way to grow your
+                                            business now a days. If you leave this platform you will
+                                            70 % loss your traffic. It is very pouplar course now.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--18th item -->
+                <div class="carousel-item">
+                    <div class="carousel-content row ">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <img src="images/UIUX.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">UI UX</h5>
+                                        <p class="card-text">
+                                            (UI) design is how designers create the look, feel,where
+                                            (UX) design is a design process whose main goal is to
+                                            create a system that provides a positive user
+                                            experience.
+                                        </p>
+                                        <a href="#coursesSmall" class="btn btn-primary">View All Courses</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more items as needed -->
+            </div>
+        </div>
+    </div>
+
+    <!---->
+
+
+
+
+    <!-- OUR SERVICES -->
+
+    <div class="container">
+        <h1 class="text-center mt-5 d-none d-md-block" style="color: red; font-weight: 400">
+            What Special Services ICP Provide ?
+        </h1>
+        <h3 class="text-center mt-5 d-block d-md-none" style="color: red; font-weight: 400">
+            What Special Services ICP Provide ?
+        </h3>
+
+        <div class="row justify-content-center mt-5">
+            <!-- Cards for large devices (col-lg-2 to fit 5 cards in a row) -->
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/1.png" class="card-img-top" alt="Card 1 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Course Advisory Services (Free)</h5>
+                        <p class="card-text">
+                            Experience the benefits of our Guidance at No Cost service,
+                            where you can access expert advice and course recommendations
+                            without incurring any fees or charges.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/2.png" class="card-img-top" alt="Card 2 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Shared Learning</h5>
+                        <p class="card-text">
+                            "Shared learning promotes collaboration and peer interaction.
+                            Participants contribute diverse perspectives, enriching and
+                            anhanced visualizing the learning experience."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/3.png" class="card-img-top" alt="Card 3 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Personalized Instruction</h5>
+                        <p class="card-text">
+                            Personalized instruction focuses on tailoring the learning
+                            experience to individual needs, ensuring effective and relevant
+                            training.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md- col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/4.png" class="card-img-top" alt="Card 4 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Credential</h5>
+                        <p class="card-text">
+                            Certification validates your expertise and skills, opening doors
+                            to new career opportunities and professional recognition. After
+                            doing course and final project students get certified.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-center mt-5 d-none d-md-block" style="color: red; font-weight: 400">
+            Why Join ICP ?
+        </h1>
+        <h3 class="text-center mt-5 d-block d-md-none" style="color: red; font-weight: 400">
+            Why Join ICP ?
+        </h3>
+
+        <div class="row justify-content-center mt-5">
+            <!-- Cards for large devices (col-lg-2 to fit 5 cards in a row) -->
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/smallgroup.png" style="height: 35vh" class="card-img-top" alt="Card 1 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Tiny Groups</h5>
+                        <p class="card-text">
+                            "A small group refers to a limited number of individuals who
+                            gather together for a specific purpose or task."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/calendar.png" style="height: 35vh" class="card-img-top" alt="Card 2 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Adaptable Timings</h5>
+                        <p class="card-text">
+                            It offers students the convenience of choosing when and how they
+                            attend classes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card mb-3" style="border: 1px solid #007bff;">
+                    <img src="images/groups.webp" style="height: 35vh" class="card-img-top" alt="Card 3 Image" />
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: red;">Seasoned educators</h5>
+                        <p class="card-text">
+                            Experienced instructors bring a wealth of knowledge and
+                            practical wisdom to their teaching.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Reviews -->
+
+    <div class="container">
+        <h1 class="text-center mt-5 d-none d-md-block" style="color: red; font-weight: 400">
+            Student Reviews About ICP
+        </h1>
+        <h3 class="text-center mt-5 d-block d-md-none" style="color: red; font-weight: 400">
+            Student Reviews About ICP
+        </h3>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Carousel items -->
+            <div class="carousel-inner mt-4">
+                <!-- First item -->
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                        <div class="row">
+                            <div class="col-sm-6 mb-4">
+                                <div class="card border-0">
+                                    <div class="card-body card-body-lg">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item"
+                                                src="https://www.youtube.com/embed/85LDzy6Wj-k?si=R5uBIY6_d3pWhk1e"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card border-0">
+                                    <div class="card-body card-body-lg">
+                                        <p class="card-text">
+                                            As a former student of ICP Institute, I can confidently
+                                            say that my experience there was nothing short of
+                                            exceptional. The institute's commitment to providing an
+                                            outstanding learning environment truly sets it apart.
+                                            The instructors were not just knowledgeable but also
+                                            approachable, making complex concepts easy to grasp.
+                                            What I appreciated most was the hands-on approach to
+                                            learning, which allowed me to gain practical skills that
+                                            have been invaluable in my career. ICP Institute was a
+                                            life-changing decision for me, and I'm grateful for the
+                                            opportunities it provided.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second item -->
+                <div class="carousel-item active">
+                    <div class="carousel-content row justify-content-between">
+                        <div class="col-sm-6 mb-4">
+                            <div class="card border-0">
+                                <div class="card-body card-body-lg">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item"
+                                            src="https://www.youtube.com/embed/SXpJ0yOmYcQ?si=O-l9tKyLjdxMDYcz"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card border-0">
+                                <div class="card-body card-body-lg">
+                                    <p class="card-text">
+                                        My time at ICP Institute was truly transformative. The
+                                        dedication of the faculty and their commitment to
+                                        student success was evident throughout my journey. The
+                                        instructors not only possessed deep knowledge but also a
+                                        passion for teaching that made every class engaging. The
+                                        hands-on learning approach was instrumental in honing my
+                                        practical skills, making me industry-ready. The
+                                        supportive and collaborative community of students
+                                        fostered a positive learning environment. ICP's flexible
+                                        learning options accommodated my schedule, allowing me
+                                        to balance effectively.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center mt-5 d-none d-md-block" id="courseslarge" style="color: red; font-weight: 400">
+        Courses Offered at ICP
+    </h1>
+    <h3 class="text-center mt-5 d-block d-md-none" id="coursesSmall" style="color: red; font-weight: 400">
+        Courses Offered at ICP
+    </h3>
+
+    <!-- ICP Courses For Large Devices -->
+
+    <div class="container my-5 d-none d-md-block">
+        <div class="container-fluid my-5">
+            <div class="row">
+                <!-- Navigation Column -->
+                <div class="col-md-12 mb-3">
+                    <!-- Horizontal Nav List -->
+                    <ul class="nav nav-pills">
+                        <!-- Navigation Items -->
+                        <li class="nav-item">
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                                role="tab" aria-controls="v-pills-home" aria-selected="true">MS Office</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                                role="tab" aria-controls="v-pills-profile" aria-selected="false">Web Designing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages"
+                                role="tab" aria-controls="v-pills-messages" aria-selected="false">PHP My SQL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages4-tab" data-toggle="pill" href="#v-pills-messages4"
+                                role="tab" aria-controls="v-pills-messages4" aria-selected="false">Graphic Designing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages5-tab" data-toggle="pill" href="#v-pills-messages5"
+                                role="tab" aria-controls="v-pills-messages5" aria-selected="false">Full Stack Web
+                                Development</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages6-tab" data-toggle="pill" href="#v-pills-messages6"
+                                role="tab" aria-controls="v-pills-messages6" aria-selected="false">6 Months Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages7-tab" data-toggle="pill" href="#v-pills-messages7"
+                                role="tab" aria-controls="v-pills-messages7" aria-selected="false">C++</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-messages8-tab" data-toggle="pill" href="#v-pills-messages8"
+                                role="tab" aria-controls="v-pills-messages8" aria-selected="false">Java</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course9-tab" data-toggle="pill" href="#v-pills-messages9"
+                                role="tab" aria-controls="v-pills-course9" aria-selected="false">Adobe Photoshop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course10-tab" data-toggle="pill" href="#v-pills-messages10"
+                                role="tab" aria-controls="v-pills-course10" aria-selected="false">ASP .NET MVC
+                                COURSE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course11-tab" data-toggle="pill" href="#v-pills-messages11"
+                                role="tab" aria-controls="v-pills-course11" aria-selected="false">Corel Draw</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course12-tab" data-toggle="pill" href="#v-pills-messages12"
+                                role="tab" aria-controls="v-pills-course12" aria-selected="false">Mobile App
+                                Development</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course13-tab" data-toggle="pill" href="#v-pills-messages13"
+                                role="tab" aria-controls="v-pills-course13" aria-selected="false">Certificate in IT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course14-tab" data-toggle="pill" href="#v-pills-messages14"
+                                role="tab" aria-controls="v-pills-course14" aria-selected="false">C# Programming</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course15-tab" data-toggle="pill" href="#v-pills-messages15"
+                                role="tab" aria-controls="v-pills-course15" aria-selected="false">Adobe Illustrator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course16-tab" data-toggle="pill" href="#v-pills-messages16"
+                                role="tab" aria-controls="v-pills-course16" aria-selected="false">Digital Marketing and
+                                SEO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="v-pills-course17-tab" data-toggle="pill" href="#v-pills-messages17"
+                                role="tab" aria-controls="v-pills-course17" aria-selected="false">UI/UX</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Content Column -->
+                <div class="col-md-12">
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Content for Navigation Item 1 -->
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                            aria-labelledby="v-pills-home-tab">
+                            <div class="card" id="largeDeviceCourse1">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Microsoft Office Course</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Microsoft Office Course</td>
+                                                <td>12,000 PKR</td>
+                                                <td>9,000 PKR</td>
+                                                <td>Ms Word, Ms Excel, Ms Powerpoint</td>
+                                                <td>2 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 2 -->
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
+                            <div class="card" id="largeDeviceCourse2">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Front End Web Designing</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Front End Web Designing</td>
+                                                <td>25,000 PKR</td>
+                                                <td>22,500 PKR</td>
+                                                <td>HTML & CSS, JavaScript, WordPress</td>
+                                                <td>2 to 3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 3 -->
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                            aria-labelledby="v-pills-messages-tab">
+                            <div class="card" id="largeDeviceCourse3">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">PHP MySQL</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PHP MySQL</td>
+                                                <td>25,000 PKR</td>
+                                                <td>22,500 PKR</td>
+                                                <td>MySQL Database, JavaScript, Laravel</td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 4 -->
+                        <div class="tab-pane fade" id="v-pills-messages4" role="tabpanel"
+                            aria-labelledby="v-pills-messages4-tab">
+                            <div class="card" id="largeDeviceCourse4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Graphic Designing</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Graphic Designing</td>
+                                                <td>25,000 PKR</td>
+                                                <td>22,500 PKR</td>
+                                                <td>
+                                                    Adobe Photoshop, Adobe Illustrator, Corel Draw
+                                                </td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 5 -->
+                        <div class="tab-pane fade" id="v-pills-messages5" role="tabpanel"
+                            aria-labelledby="v-pills-messages5-tab">
+                            <div class="card" id="largeDeviceCourse5">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Full Stack Web Development</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Full Stack Web Development</td>
+                                                <td>40,000 PKR</td>
+                                                <td>36,000 PKR</td>
+                                                <td>Front End, Back End, PHP/ASP.NET</td>
+                                                <td>6 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 6 -->
+                        <div class="tab-pane fade" id="v-pills-messages6" role="tabpanel"
+                            aria-labelledby="v-pills-messages6-tab">
+                            <div class="card" id="largeDeviceCourse6">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">
+                                        Certificate in Six Months Short Courses
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Certificate in Six Months Short Courses</td>
+                                                <td>40,000 PKR</td>
+                                                <td>36,000 PKR</td>
+                                                <td>
+                                                    Android App Development, Web Development, Graphic
+                                                    Designing
+                                                </td>
+                                                <td>6 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 7 -->
+                        <div class="tab-pane fade" id="v-pills-messages7" role="tabpanel"
+                            aria-labelledby="v-pills-messages7-tab">
+                            <div class="card" id="largeDeviceCourse7">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">C++</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>C++</td>
+                                                <td>15,000 PKR</td>
+                                                <td>12,500 PKR</td>
+                                                <td>
+                                                    Basic Programming, Advance Level OOP, Data Structure
+                                                    Algorithm
+                                                </td>
+                                                <td>2 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content for Navigation Item 8 -->
+                        <div class="tab-pane fade" id="v-pills-messages8" role="tabpanel"
+                            aria-labelledby="v-pills-messages8-tab">
+                            <div class="card" id="largeDeviceCourse8">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">JAVA Programming</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>JAVA Programming</td>
+                                                <td>20,000 PKR</td>
+                                                <td>18,000 PKR</td>
+                                                <td>Basic Java, Advance Java, Desktop Software</td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 9       -->
+                        <div class="tab-pane fade" id="v-pills-messages9" role="tabpanel"
+                            aria-labelledby="v-pills-messages9-tab">
+                            <div class="card" id="largeDeviceCourse9">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Adobe Photoshop</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Adobe Photoshop</td>
+                                                <td>12,000 PKR</td>
+                                                <td>9,000 PKR</td>
+                                                <td>Sketching, Pictures Editing, Drawing</td>
+                                                <td>1 Month</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--          Course 10       -->
+                        <div class="tab-pane fade" id="v-pills-messages10" role="tabpanel"
+                            aria-labelledby="v-pills-messages10-tab">
+                            <div class="card" id="largeDeviceCourse10">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">ASP .NET MVC COURSE</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ASP .NET MVC COURSE</td>
+                                                <td>25,000 PKR</td>
+                                                <td>22,500 PKR</td>
+                                                <td>Asp.net core, Mvc, SQL server</td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 11       -->
+                        <div class="tab-pane fade" id="v-pills-messages11" role="tabpanel"
+                            aria-labelledby="v-pills-messages11-tab">
+                            <div class="card" id="largeDeviceCourse11">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Corel Draw</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Corel Draw</td>
+                                                <td>12,000 PKR</td>
+                                                <td>9,000 PKR</td>
+                                                <td>
+                                                    Flyer Designing, Visiting card Designing, Logo
+                                                    Designing
+                                                </td>
+                                                <td>1 Month</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 12       -->
+                        <div class="tab-pane fade" id="v-pills-messages12" role="tabpanel"
+                            aria-labelledby="v-pills-messages12-tab">
+                            <div class="card" id="largeDeviceCourse12">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Mobile App Development</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mobile App Development</td>
+                                                <td>22,000 PKR</td>
+                                                <td>20,000 PKR</td>
+                                                <td>Java, Kotlin, Room Database</td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 13       -->
+                        <div class="tab-pane fade" id="v-pills-messages13" role="tabpanel"
+                            aria-labelledby="v-pills-messages13-tab">
+                            <div class="card" id="largeDeviceCourse13">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Certificate in IT</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Certificate in IT</td>
+                                                <td>40,000 PKR</td>
+                                                <td>36,000 PKR</td>
+                                                <td>Ms Office, C++ Programming, Graphic 1 Module</td>
+                                                <td>6 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 14       -->
+                        <div class="tab-pane fade" id="v-pills-messages14" role="tabpanel"
+                            aria-labelledby="v-pills-messages14-tab">
+                            <div class="card" id="largeDeviceCourse14">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">C# Programming</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>C# Programming</td>
+                                                <td>25,000 PKR</td>
+                                                <td>18,000 PKR</td>
+                                                <td>
+                                                    Basic C# Programming, Visual Programming, Setup of
+                                                    Software
+                                                </td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 15       -->
+                        <div class="tab-pane fade" id="v-pills-messages15" role="tabpanel"
+                            aria-labelledby="v-pills-messages15-tab">
+                            <div class="card" id="largeDeviceCourse15">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Adobe Illustrator</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Adobe Illustrator</td>
+                                                <td>12,000 PKR</td>
+                                                <td>9,000 PKR</td>
+                                                <td>
+                                                    Flyer Designing, Visiting Card Designing, Logo
+                                                    Designing
+                                                </td>
+                                                <td>1 Month</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 16       -->
+                        <div class="tab-pane fade" id="v-pills-messages16" role="tabpanel"
+                            aria-labelledby="v-pills-messages16-tab">
+                            <div class="card" id="largeDeviceCourse16">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">Digital Marketing and SEO</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Digital Marketing and SEO</td>
+                                                <td>22,000 PKR</td>
+                                                <td>19,500 PKR</td>
+                                                <td>
+                                                    Social Media Marketing, SEO of Website, Freelancing
+                                                </td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--          Course 17       -->
+                        <div class="tab-pane fade" id="v-pills-messages17" role="tabpanel"
+                            aria-labelledby="v-pills-messages17-tab">
+                            <div class="card" id="largeDeviceCourse17">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">UI/UX</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Total Fee (Installment)</th>
+                                                <th>Discounted Fee (Advance)</th>
+                                                <th>Course Contents</th>
+                                                <th>Course Duration</th>
+                                                <th>Additional Information</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>UI/UX</td>
+                                                <td>50,000 PKR</td>
+                                                <td>30,000 PKR</td>
+                                                <td>Adobe XD, Website Layout</td>
+                                                <td>3 Months</td>
+                                                <td>Start Freelancing with this course</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- You can add more content sections here for additional navigation items -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--ICP courses fro mobile devices-->
+    <div class="container my-5 d-block d-md-none">
+        <!-- Accordion Group -->
+        <div id="accordion" class="mt-3">
+            <!-- Course 1 -->
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="false" aria-controls="collapseOne">
+                            1. Microsoft Office Course
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <th>Total Fee (Installment)</th>
+                                    <td>12,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Discounted Fee (Advance)</th>
+                                    <td>9,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Course Contents</th>
+                                    <td>Ms Word, Ms Excel, Ms Powerpoint</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Course Duration</th>
+                                    <td>2 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Additional Information</th>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            2. Front End Web Designing
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <th>Total Fee (Installment)</th>
+                                    <td>25,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Discounted Fee (Advance)</th>
+                                    <td>22,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Course Contents</th>
+                                    <td>HTML & CSS, JavaScript, WordPress</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Course Duration</th>
+                                    <td>2 to 3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Additional Information</th>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 3 -->
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseThree"
+                            aria-expanded="false" aria-controls="collapseThree">
+                            3. PHP MySQL
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <th>Total Fee (Installment)</th>
+                                    <td>25,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Discounted Fee (Advance)</th>
+                                    <td>22,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Course Contents</th>
+                                    <td>MySQL Database, JavaScript, Laravel</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Course Duration</th>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Additional Information</th>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 4 -->
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseFour"
+                            aria-expanded="false" aria-controls="collapseFour">
+                            4. Graphic Designing
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <th>Total Fee (Installment)</th>
+                                    <td>25,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Discounted Fee (Advance)</th>
+                                    <td>22,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Course Contents</th>
+                                    <td>Adobe PhotoShop, Adobe Illustrator, Corel Draw</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Course Duration</th>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Additional Information</th>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 5 -->
+            <div class="card">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseFive"
+                            aria-expanded="false" aria-controls="collapseFive">
+                            5. Full Stack Web Development
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <th>Total Fee (Installment)</th>
+                                    <td>40,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Discounted Fee (Advance)</th>
+                                    <td>36,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Course Contents</th>
+                                    <td>Front End, Back End, PHP/ASP.NET</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <th>Course Duration</th>
+                                    <td>6 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <th>Additional Information</th>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 6 -->
+            <div class="card">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseSix"
+                            aria-expanded="false" aria-controls="collapseSix">
+                            6. Certificate in six months short courses
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>40,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>36,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>
+                                        Android App Development, Web Development, Graphic
+                                        Designing
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>6 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 7 -->
+            <div class="card">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseSeven"
+                            aria-expanded="false" aria-controls="collapseSeven">
+                            7. C plus plus
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>15,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>12,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>
+                                        Basic Programming, Advanced Level OOP, Data Structure &
+                                        Algorithm
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>2 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course 8 -->
+            <div class="card">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseEight"
+                            aria-expanded="false" aria-controls="collapseEight">
+                            8. JAVA Programming
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>20,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>18,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Basic Java, Advance Java, Desktop Software</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 9 -->
+            <div class="card">
+                <div class="card-header" id="headingNine">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseNine"
+                            aria-expanded="false" aria-controls="collapseNine">
+                            9. Adobe Photoshop
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>12,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>9,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Sketching, Pictures Editing, Drawing</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>1 Month</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 10 -->
+            <div class="card">
+                <div class="card-header" id="headingTen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseTen"
+                            aria-expanded="false" aria-controls="collapseTen">
+                            10. ASP .NET MVC COURSE
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>25,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>22,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Asp.net core, Mvc, SQL server</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 11 -->
+            <div class="card">
+                <div class="card-header" id="headingEleven">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseEleven"
+                            aria-expanded="false" aria-controls="collapseEleven">
+                            11. Corel Draw
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>12,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>9,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>
+                                        Flyer Designing, Visiting card Designing, Logo Designing
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>1 Month</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 12 -->
+            <div class="card">
+                <div class="card-header" id="headingTwelve">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseTwelve"
+                            aria-expanded="false" aria-controls="collapseTwelve">
+                            12. Mobile App Development
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>22,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>20,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Java, Kotlin, Room Database</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 13 -->
+            <div class="card">
+                <div class="card-header" id="headingThirteen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseThirteen"
+                            aria-expanded="false" aria-controls="collapseThirteen">
+                            13. Certificate in IT
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>40,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>36,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Ms office, c plus plus, Graphic 1 Module</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>6 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Accordion for Course 14 -->
+            <div class="card">
+                <div class="card-header" id="headingFourteen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseFourteen"
+                            aria-expanded="false" aria-controls="collapseFourteen">
+                            14. C#
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>25,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>18,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>
+                                        Basic c sharp, Visual Programming, Setup of Software
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 15 -->
+            <div class="card">
+                <div class="card-header" id="headingFifteen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseFifteen"
+                            aria-expanded="false" aria-controls="collapseFifteen">
+                            15. Adobe Illustrator
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseFifteen" class="collapse" aria-labelledby="headingFifteen" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>12,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>9,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>
+                                        Flyer Designing, Visiting card Designing, Logo Designing
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>1 Month</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 16 -->
+            <div class="card">
+                <div class="card-header" id="headingSixteen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseSixteen"
+                            aria-expanded="false" aria-controls="collapseSixteen">
+                            16. Digital Marketing and SEO
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseSixteen" class="collapse" aria-labelledby="headingSixteen" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>22,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>19,500/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>Social Media Marketing, SEO of website, Freelancing</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Course 17 -->
+            <div class="card">
+                <div class="card-header" id="headingSeventeen">
+                    <h5 class="mb-0">
+                        <button class="btn accordion-button" data-toggle="collapse" data-target="#collapseSeventeen"
+                            aria-expanded="false" aria-controls="collapseSeventeen">
+                            17. UI/UX
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseSeventeen" class="collapse" aria-labelledby="headingSeventeen"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td>Total Fee (Installment)</td>
+                                    <td>50,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Discounted Fee (Advance)</td>
+                                    <td>30,000/- PKR</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Course Contents</td>
+                                    <td>UI/UX, Adobe XD, Website Layout</td>
+                                </tr>
+                                <tr class="bg-primary text-white">
+                                    <td>Course Duration</td>
+                                    <td>3 Months</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td>Additional Information</td>
+                                    <td style="color: #007bff">
+                                        Start Freelancing with this course
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--FAQ SECTION-->
+
+    <div class="faq-section" id="FaqSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="faq-title text-center pb-3">
+                        <h2 style="color: red;">Frequently Asked Questions</h2>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="accordion" id="faqAccordion">
+                        <!-- FAQ Item 1 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseOne" aria-expanded="false"
+                                        aria-controls="faqCollapseOne">
+                                        What documents are needed for admission?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseOne" class="collapse" aria-labelledby="faqHeadingOne"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    If the student is under 18, they need to have a B-form. If the student is above 18,
+                                    they need to have a CNIC copy. Additionally, 2 passport size pictures with a blue
+                                    background are required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseTwo" aria-expanded="false"
+                                        aria-controls="faqCollapseTwo">
+                                        Are there any extra charges apart from the fee?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseTwo" class="collapse" aria-labelledby="faqHeadingTwo"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Yes, there are additional charges. The admission form fee is Rs 100/-. Certificate
+                                    Fee for normal processing is Rs 250/-, and for urgent processing, it's Rs 800/-.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseThree" aria-expanded="false"
+                                        aria-controls="faqCollapseThree">
+                                        Is the class environment practical or theoretical?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseThree" class="collapse" aria-labelledby="faqHeadingThree"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    The class environment is totally based on practical learning.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseFour" aria-expanded="false"
+                                        aria-controls="faqCollapseFour">
+                                        What is the experience of the teachers?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseFour" class="collapse" aria-labelledby="faqHeadingFour"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    ICP hires trainers who have a minimum of 5 years of experience and are already
+                                    working in different software companies.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 5 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingFive">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseFive" aria-expanded="false"
+                                        aria-controls="faqCollapseFive">
+                                        What is the refund policy?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseFive" class="collapse" aria-labelledby="faqHeadingFive"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    You can freeze your course, but there is no option for a refund.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 6 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingSix">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseSix" aria-expanded="false"
+                                        aria-controls="faqCollapseSix">
+                                        What is the process of fee submission?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseSix" class="collapse" aria-labelledby="faqHeadingSix"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    You can submit your fee online with a bank or by hand in the institute. For bank
+                                    details, kindly contact on WhatsApp at 03415127006.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 7 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingSeven">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseSeven" aria-expanded="false"
+                                        aria-controls="faqCollapseSeven">
+                                        Can you give classes on freelancing or online earning?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseSeven" class="collapse" aria-labelledby="faqHeadingSeven"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Yes, each course includes freelancing training. Once your course is completed, the
+                                    teacher will help you create an ID on different freelancing platforms like Upwork or
+                                    Freelancer and guide you on how to take and deliver projects to start earning from
+                                    home.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 8 -->
+                        <div class="card">
+                            <div class="card-header" id="faqHeadingEight">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapseEight" aria-expanded="false"
+                                        aria-controls="faqCollapseEight">
+                                        What is the procedure for makeup classes?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="faqCollapseEight" class="collapse" aria-labelledby="faqHeadingEight"
+                                data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Makeup classes will be provided if a student misses a class lecture.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- INTERNSHIP OPPORTUNITIES -->
+
+    <div class="container my-5" id="internshipid">
+        <h1 class="text-center" style="color: red;">Internship Opportunities</h1>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Website Development Internship</h5>
+                        <p class="card-text">Join our team to learn and work on website development projects.</p>
+                    </div>
+                </div>
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">PHP Internship</h5>
+                        <p class="card-text">Get hands-on experience in PHP development and web applications.</p>
+                    </div>
+                </div>
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dot Net Internship</h5>
+                        <p class="card-text">Explore the world of .NET development and build powerful applications.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Android Internship</h5>
+                        <p class="card-text">Learn mobile app development for the Android platform.</p>
+                    </div>
+                </div>
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Graphics Designing Internship</h5>
+                        <p class="card-text">Unleash your creativity in graphic design and visual communication.</p>
+                    </div>
+                </div>
+                <div class="card opportunity-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Administration Internship</h5>
+                        <p class="card-text">Gain valuable administrative skills and contribute to our organization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <div class="contact-info">
+                <p>Submit your resume to <a href="mailto:coursescomputer7@gmail.com">coursescomputer7@gmail.com</a></p>
+                <p>OR</p>
+                <p>Visit our office between 10am to 5pm.</p>
+                <p class="mb-0">For further details, call us at <a href="tel:03415127006">0341-5127006</a></p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center" style="color: red;" id="contactid">Contact Form</h1>
+    <!--   contact details  -->
+    <div class="container mb-5">
+        <div class="row">
+
+            <!-- Contact Information Panel -->
+            <div class="col-md-6">
+                <div class="contact-wrapper p-4">
+                    <h4 class="text-center mb-4" style="color: #007bff;">Contact Details</h4>
+                    <br>
+                    <p class="contact-info1"><i class="bi bi-geo-alt"></i> Find Us</p>
+
+                    <p class="contact-info1">Alfalah Center, 2nd Floor</p>
+                    <p class="contact-info1">Opposite Butt Karahi, Commercial Market</p>
+                    <p class="contact-info1">Rawalpindi</p>
+                    <p class="contact-info1"><i class="bi bi-telephone"></i> 0341-5127006</p>
+                    <p class="contact-info1"><i class="bi bi-envelope"></i> <a
+                            href="mailto:info@icpinstitute.pk">info@icpinstitute.pk</a></p>
+                    <br><br><br>
+                </div>
+            </div>
+            <!-- Contact Form Panel -->
+            <div class="col-md-6">
+                <div class="contact-wrapper p-4">
+                    <div class="contact-form">
+                        <h4 class="text-center">Contact Us</h4>
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Your Email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="4"
+                                    placeholder="Your Message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Google Map -->
+            <div class="col-md-12">
+                <div class="map-container">
+                    <div class="map-responsive">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d207.60578409012683!2d73.07443329753592!3d33.63921306248239!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df95f0a4fe2b3f%3A0xd340c79be38dc89a!2sICP%20Computer%20institute-Short%20courses%2CIT%20courses%2CGraphic%20Designing%2C%20Digital%20Marketing%2CRawalpindi%2CIslamabad%2CPakistan!5e0!3m2!1sen!2sus!4v1694241255661!5m2!1sen!2sus"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--About Section ( About and Principal Information )-->
+    <h1 class="text-center my-5 d-none d-md-block" id="abouUSid" style="color: red;">About ICP Institute</h1>
+    <h2 class="text-center my-5 d-block d-md-none" id="abouUSid2" style="color: red;">About ICP Institute</h2>
+    <div class="about-icp-container">
+
+        <div class="about-icp-text">
+            <p>ICP Institute, established in 2005, is a dynamic force in Pakistan's IT education landscape. Our mission
+                is to empower individuals to excel in the ever-evolving <span class="highlight-blue">IT industry</span>,
+                both in government and the private sector.</p>
+            <p>At ICP, we transform aspiring talents into industry-ready professionals. Through hands-on experiences,
+                collaboration with seasoned developers, and exposure to cutting-edge frameworks, our students become the
+                leaders of tomorrow's tech world.</p>
+            <p>We are dedicated to fostering <span class="highlight-blue">entrepreneurship</span> in Pakistan. Through
+                dynamic internships and monthly workshops, we propel our students into successful careers in the market.
+                Our emphasis is on practical skills, ensuring every individual is fully equipped for success.</p>
+            <p>Join us and become a part of the future of <span class="highlight-red">tech</span>!</p>
+        </div>
+    </div>
+    <center>
+        <div class="principal-section mb-5">
+            <h2 style="color: red;">Our Principal</h2>
+            <img src="images/sirAfraz.png" alt="Sir Afraz" class="principal-image">
+            <br><br>
+            <p class="principal-text">We proudly introduce Sir Afraz, the guiding force behind ICP Institute. His
+                visionary leadership inspires us all. Sir Afraz is committed to nurturing the potential of our students,
+                shaping them into future leaders of the tech industry.</p>
+        </div>
+    </center>
+
+
+
+    <!--Footer-->
+
+    <footer class="footer px-5 pt-5 bg-primary text-light">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mb-4">
+                <h3>Contact</h3>
+                <p>Email: info@icpinstitute.pk</p>
+                <p>Phone: 0341-5127006</p>
+            </div>
+            <div class="col-md-4 col-sm-12 mb-4">
+                <h3>Address</h3>
+                <p>Office #03, Alfalah Center</p>
+                <p>Opposite Butt Karahi, Commercial Market</p>
+                <p>Rawalpindi</p>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <h3>Social Links</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon text-light"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon text-light fs-5 mx-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon text-light fs-5 mx-3"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon text-light fs-5 mx-3"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <p>&copy; 2022 All rights reserved by Ideal Cloud Programming</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- Include Bootstrap JavaScript (either via CDN or locally) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to open the offcanvas navbar
+        function openNav() {
+            document.getElementById("offcanvasNavbar").style.right = "0";
+        }
+
+        // Function to close the offcanvas navbar
+        function closeNav() {
+            document.getElementById("offcanvasNavbar").style.right = "-250px";
+        }
+
+        // Close the navbar when clicking outside of it
+        window.addEventListener("mouseup", function (event) {
+            const navbar = document.getElementById("offcanvasNavbar");
+            if (event.target != navbar && event.target.parentNode != navbar) {
+                closeNav();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+
+.custom-alert {
+    margin-bottom: 0;
+    background-color:rgba(255, 0, 0, 0.87);
+    /* Contrasting color */
+    color: white;
+    border: none;
+    border-radius: 0;
+    
+}
+
+img {
+    border-radius: 50%;
+    border: 2px solid #007bff;
+
+}
+
+.navbar-brand:hover {
+    text-decoration: none !important;
+}
+
+/* Navbar styling */
+.navbar {
+    margin-top: 0;
+    background-color: white;
+    /* Very light gray */
+    box-shadow: 0px 0px 5px 0px gray;
+}
+
+/* Custom button styling */
+.navbar-nav .nav-link {
+    text-transform: capitalize;
+    border-radius: 0;
+    margin: 0;
+    padding: 10px 20px;
+    /* Add gap between buttons */
+    font-size: 1.2rem;
+    margin-left: 10px;
+    /* Increase button text size */
+}
+
+.navbar-nav .nav-link {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid white;
+}
+
+/* Change the text color to black */
+.nav-link {
+    color: white !important;
+}
+
+/* Remove gray background color from accordion headers */
+.card-header {
+    background-color: transparent;
+}
+
+/* Add down arrows to accordion headers */
+.accordion-button {
+    width: 100%;
+    padding: 10px;
+    text-align: start;
+}
+
+.accordion-button::after {
+    content: "\f107";
+    /* Unicode character for down arrow */
+    font-family: FontAwesome;
+    float: right;
+    position: absolute;
+    right: 30px;
+}
+
+/* Style for the active accordion header */
+.accordion-button:not(.collapsed)::after {
+    content: "\f107";
+    /* Unicode character for up arrow when active */
+    position: absolute;
+    right: 30px;
+}
+
+.nav-pills .nav-item .nav-link {
+    color: black !important;
+}
+
+/* Styling for the offcanvas navbar */
+.offcanvas-navbar {
+    background-color: #007bff;
+    /* Primary color background */
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -250px;
+    /* Initially hidden to the right */
+    overflow-y: auto;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.offcanvas-navbar a {
+    color: #fff;
+    /* White text color */
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    transition: background-color 0.3s;
+}
+
+.offcanvas-navbar a:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* Styling for the menu button */
+.menu-button {
+    background-color: #007bff;
+    /* Primary color background */
+    color: #fff;
+    /* White text color */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Styling for the close button */
+.close-button {
+    position: absolute;
+    color: white;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+
+/* Add your custom internal CSS here */
+.faq-section {
+    padding: 30px 0 30px;
+    background: white;
+}
+
+.faq-section .card {
+    border: none;
+    margin-bottom: 30px;
+}
+
+.faq-section .btn-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    background: #242c42;
+    color: #fff;
+    border-radius: 0;
+    padding: 7px 15px 12px;
+    font-size: 16px;
+    overflow: hidden;
+    border: none;
+    font-weight: 600;
+}
+
+.faq-section .btn-link:hover,
+.faq-section .btn-link:focus {
+    text-decoration: none;
+}
+
+.faq-section .btn-link:after {
+    position: absolute;
+    content: '\f068';
+    right: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-family: fontawesome;
+}
+
+.faq-section .btn-link.collapsed:after {
+    content: '\f067';
+}
+
+.faq-section .btn-link:before {
+    position: absolute;
+    content: '';
+    background: #86bc42;
+    -webkit-transform: skew(-35deg);
+    transform: skew(-35deg);
+    height: 100%;
+    width: 50%;
+    left: 90%;
+    top: 0;
+}
+
+.faq-section .card-header {
+    padding: 0;
+    background: transparent;
+    border-bottom: none;
+}
+
+.faq-section .card-body {
+    position: relative;
+}
+
+.faq-section .card-body:after {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: #242c42;
+}
+
+.faq-section .card-body:before {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 50%;
+    left: 0;
+    bottom: 0;
+    background: #86bc42;
+    z-index: 1;
+}
+
+
+/* INTERNSHIP  */
+
+.opportunity-card {
+    background-color: #ffffff;
+    border: 1px solid #e9e9e9;
+    margin-bottom: 20px;
+}
+
+.opportunity-card .card-body {
+    color: #333333;
+}
+
+.opportunity-card .card-title {
+    color: #007bff;
+}
+
+.contact-info {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.contact-info a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+
+/*      CONTACT DETAILS      */
+.contact-wrapper {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info1 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.contact-form {
+    margin-top: 20px;
+}
+
+.contact-form h4 {
+    color: #007bff;
+}
+
+.map-container {
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+
+/*   ABOUT SECTION    */
+
+
+.about-icp-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+.about-icp-text {
+    text-align: justify;
+    font-size: 22px;
+    line-height: 1.6;
+}
+.highlight-blue {
+    color: #007bff;
+    font-weight: bold;
+}
+.highlight-red {
+    color: #dc3545;
+    font-weight: bold;
+}
+.principal-section {
+    text-align: center;
+    width: 60vw;
+    margin-top: 40px;
+    padding: 20px;
+    
+    color: black;
+    border-radius: 10px;
+}
+.principal-image {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-top: 20px;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 767px) {
+    /* Mobile styles */
+    .about-icp-container {
+        padding: 20px;
+    }
+}
+.principal-text{
+    font-size: large;
+}
+
+
+
+
+/* Certificate Verification */
+.verify-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.verify-button:hover {
+    background-color: #0056b3;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+.news-area{
+  background-color: red;
+  color: white;
+  min-width: 10vw;
+  
+}
+
